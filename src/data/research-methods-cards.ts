@@ -1,6 +1,6 @@
-// Power Electronics 1 - Complete Exam Revision Flashcards
+// Power Electronics 1 - Complete Exam Revision Flashcards (Q&A Format)
 // From HEXCO National Diploma Past Papers (Oct 2019 - Mar 2022)
-// 400+ Professional Exam Questions with Model Answers
+// 100+ Professional Exam Questions with Detailed Solutions
 
 export interface ExamCard {
   question: string;
@@ -11,236 +11,168 @@ export interface ExamCard {
 
 export const RESEARCH_METHODS_CARDS: ExamCard[] = [
   // ============================================
-  // POWER DIODES & SEMICONDUCTOR FUNDAMENTALS
+  // FUNDAMENTAL CONCEPTS & DEFINITIONS
   // ============================================
   {
     question: "Define latching current in relation to thyristors.",
-    answer: "**Latching current** is the minimum anode current required to keep a thyristor in the on-state immediately after it has been turned on and the gate signal has been removed. If the anode current falls below the latching current before the gate pulse ends, the thyristor will revert to the off-state.",
-    topic: "Thyristors & Diodes"
+    answer: "**Latching current** is the minimum anode current required to keep a thyristor in the on-state immediately after it has been turned on and the gate signal has been removed. Once the anode current exceeds the latching current, the device remains latched even if the gate current is zero. If the anode current falls below the latching current before the gate pulse ends, the device will revert to the off-state.",
+    topic: "Thyristor Fundamentals",
+    difficulty: "easy"
   },
   {
-    question: "Define holding current.",
-    answer: "**Holding current** is the minimum anode current required to maintain a thyristor in the on-state after it has been turned on. If the anode current falls below the holding current, the device reverts to the blocking state. Holding current is slightly lower than latching current.",
-    topic: "Thyristors & Diodes"
+    question: "Define holding current and distinguish it from latching current.",
+    answer: "**Holding current** is the minimum anode current required to maintain a thyristor in the on-state after it has been turned on. If the anode current falls below the holding current, the device reverts to the blocking state. **Key distinction:** Latching current is slightly higher than holding current. Latching current must be exceeded at turn-on to latch the device, while holding current is the minimum required to maintain conduction after latching.",
+    topic: "Thyristor Fundamentals",
+    difficulty: "easy"
   },
   {
-    question: "What is forward breakover voltage?",
-    answer: "**Forward breakover voltage ($$V_{BO}$$)** is the minimum forward voltage (anode positive with respect to cathode) at which a thyristor turns on without a gate signal, due to avalanche breakdown of the middle ($$J_2$$) junction. Typical values range from 400-1200V depending on device rating.",
-    topic: "Thyristors & Diodes"
+    question: "What is forward breakover voltage in a thyristor?",
+    answer: "**Forward breakover voltage ($$V_{BO}$$)** is the minimum forward voltage (anode positive with respect to cathode) at which a thyristor turns on without any gate signal, due to avalanche breakdown of the middle ($$J_2$$) junction. This occurs when the reverse-biased middle junction reaches its breakdown voltage. Typical values range from 400-1200V depending on device rating. This is an undesirable operating point and should be avoided in circuit design.",
+    topic: "Thyristor Fundamentals",
+    difficulty: "medium"
   },
   {
-    question: "List three advantages of a Schottky diode over a standard silicon diode.",
-    answer: "**Advantages of Schottky diodes:**\n1) **Very fast switching speed** – no charge storage means negligible reverse recovery time\n2) **Low forward voltage drop** (0.2–0.5V vs 0.7V) → reduced conduction losses\n3) **No minority carrier injection** → suitable for high-frequency applications\n\n**Disadvantages:**\n- Higher reverse leakage current\n- Low reverse breakdown voltage (<200V)",
-    topic: "Thyristors & Diodes"
+    question: "Compare the advantages and disadvantages of GTO (Gate Turn-Off) versus SCR.",
+    answer: "**Advantages of GTO:**\n\n1. **Gate turn-off capability** - Can be turned off by a negative gate pulse, eliminating the need for forced commutation circuits\n2. **Higher switching frequency** - Can operate at higher frequencies than SCRs\n3. **Simplified circuit design** - Reduces complexity of external commutation circuits\n\n**Disadvantages of GTO:**\n\n1. **Higher on-state voltage drop** - Typically 2-4V compared to 1-2V for SCRs\n2. **Large negative gate current required** - Turn-off requires 1/3 to 1/5 of the anode current\n3. **Complex gate drive circuit** - More sophisticated triggering circuits needed\n4. **Higher cost** - More expensive than equivalent SCRs",
+    topic: "Thyristor Devices",
+    difficulty: "medium"
   },
   {
-    question: "Describe the construction and operation of a fast recovery diode.",
-    answer: "**Construction:** A semiconductor junction diode doped with **gold (Au)** or other recombination centres to reduce minority carrier lifetime.\n\n**Operation:**\n- Forward biased: conducts current like normal diode (≈0.7V drop)\n- Reverse biased: fast turn-off because gold creates recombination centers\n- **Reverse recovery time:** typically 0.5–50 ns (vs μs for standard diodes)\n\n**Applications:** High-frequency rectifiers, SMPS, chopper and inverter circuits.",
-    topic: "Thyristors & Diodes"
-  },
-
-  // ============================================
-  // SCR STRUCTURE & OPERATION
-  // ============================================
-  {
-    question: "Draw and label the two-transistor equivalent model of an SCR.",
-    answer: "An SCR can be modeled as a **PNP transistor (Q₁) and NPN transistor (Q₂) connected back-to-back**.\n\n**Anode current formula:**\n$$I_A = \\frac{\\alpha_2 I_G + I_{CBO1} + I_{CBO2}}{1 - (\\alpha_1 + \\alpha_2)}$$\n\nWhere:\n- $$\\alpha_1, \\alpha_2$$ = forward current gains of Q₁ and Q₂\n- $$I_G$$ = gate current\n- $$I_{CBO}$$ = leakage currents\n\nWhen $$(\\alpha_1 + \\alpha_2) \\to 1$$, the denominator → 0, causing regenerative turn-on and high anode current.",
-    topic: "Thyristors & Diodes"
-  },
-  {
-    question: "List five methods of triggering (turning on) an SCR.",
-    answer: "1. **Forward voltage triggering** – apply high forward voltage until avalanche breakdown (unreliable, damages device)\n\n2. **Temperature (thermal) triggering** – increase junction temperature until thermal runaway occurs (unreliable)\n\n3. **dv/dt triggering** – fast rising voltage across SCR injects capacitive current into J₂ (false turn-on, prevented by snubber)\n\n4. **Light triggering** – used in LASCR; light strikes inner P layer generating electron-hole pairs\n\n5. **Gate triggering** – apply positive voltage between gate and cathode (most common, most reliable)",
-    topic: "Thyristors & Diodes"
-  },
-  {
-    question: "An SCR has on-state voltage drop of 1.5V and carries 50A from a 600V supply with 300Ω load resistance. Calculate: (a) Device power gain, (b) Turn-on current gain, (c) Turn-off current gain if gate turn-off current is 25A.",
-    answer: "**Given:** $$V_{on} = 1.5\\text{ V}$$, $$I_{load} = 50\\text{ A}$$, $$I_{g(on)} = 0.5\\text{ A}$$, $$I_{g(off)} = 25\\text{ A}$$\n\n**Load current:**\n$$I_{load} = \\frac{600-1.5}{300} = \\frac{597.8}{300} = 1.99\\text{ A}$$\n\n**Output power:**\n$$P_{out} = 597.8 \\times 1.99 = 1191.5\\text{ W}$$\n\n**a) Power gain:**\n$$\\text{Power gain} = \\frac{1191.5}{10} = 119.15$$\n\n**b) Turn-on current gain:**\n$$\\beta_{on} = \\frac{1.99}{0.5} = 3.99$$\n\n**c) Turn-off current gain:**\n$$\\beta_{off} = \\frac{1.99}{25} = 0.0797$$",
-    topic: "Thyristors & Diodes",
+    question: "Describe the construction and operation of a Schottky diode.",
+    answer: "**Construction:**\nA Schottky diode uses a **metal-semiconductor junction** (e.g., platinum, molybdenum, or chromium on n-type silicon) instead of a traditional p-n junction. The metal contact forms the anode and the n-type semiconductor forms the cathode.\n\n**Operation:**\n- **Majority carrier device** - conducts via electrons in n-type material\n- **No minority carrier storage** - results in negligible reverse recovery time\n- **Forward voltage drop** - very low (0.2-0.5V vs 0.7V for silicon diodes)\n- **Fast switching** - Ideal for high-frequency applications\n- **Higher leakage current** - increases with temperature\n- **Lower breakdown voltage** - typically <200V\n\n**Applications:** SMPS rectifiers, high-frequency switching, diode clamps in MOSFET circuits",
+    topic: "Semiconductor Devices",
     difficulty: "hard"
   },
 
   // ============================================
-  // UJT & TRIGGERING CIRCUITS
+  // POWER CALCULATIONS & THERMAL ANALYSIS
   // ============================================
   {
-    question: "Define the intrinsic stand-off ratio (η) of a UJT and derive the formula for peak voltage.",
-    answer: "**Intrinsic stand-off ratio (η):**\n$$\\eta = \\frac{R_{B1}}{R_{BB}}$$\n\nWhere:\n- $$R_{B1}$$ = resistance from emitter to base B₁\n- $$R_{BB}$$ = total interbase resistance ($$R_{B1} + R_{B2}$$)\n- Typical range: 0.51 – 0.82\n\n**Peak voltage (emitter firing potential):**\n$$V_P = \\eta V_{BB} + V_D$$\n\nWhere $$V_D$$ ≈ 0.5V is the diode drop\n\n**Example:** If $$\\eta = 0.7$$ and $$V_{BB} = 20\\text{ V}$$, then $$V_P = 0.7 \\times 20 + 0.5 = 14.5\\text{ V}$$",
-    topic: "Gate Drive & Triggering"
-  },
-  {
-    question: "Derive the frequency formula for a UJT relaxation oscillator and list the conditions for stable oscillation.",
-    answer: "**Frequency formula:**\n$$f = \\frac{1}{RC \\ln\\left(\\frac{1}{1-\\eta}\\right)}$$\n\nWhere:\n- $$R$$ = charging resistor\n- $$C$$ = capacitor\n- $$\\eta$$ = intrinsic stand-off ratio\n\n**Conditions for oscillation:**\n$$R_{min} < R < R_{max}$$\n\nWhere:\n$$R_{min} = \\frac{V_S - V_V}{I_V}, \\quad R_{max} = \\frac{V_S - V_P}{I_P}$$\n\n**Design example:** For $$\\eta = 0.7$$, $$f = 1.5\\text{ kHz}$$, $$C = 0.04\\text{ μF}$$:\n$$R = \\frac{1}{1500 \\times 0.04\\times10^{-6} \\times \\ln(3.33)} = 13.84\\text{ kΩ}$$",
-    topic: "Gate Drive & Triggering",
+    question: "A GTO is rated 100V, 25A. It controls power from a 600V supply with a 300Ω load. On-state voltage drop is 2.2V and average gate power is 10W. Calculate: (a) device power gain, (b) turn-on current gain (gate current = 0.5A), (c) turn-off current gain (gate current = -25A).",
+    answer: "**Given:**\n$$V_{supply} = 600\\text{ V}, R_L = 300\\text{ Ω}, V_{on} = 2.2\\text{ V}, P_g = 10\\text{ W}$$\n$$I_{g(on)} = 0.5\\text{ A}, I_{g(off)} = 25\\text{ A}$$\n\n**Load current:**\n$$I_{load} = \\frac{V_{supply} - V_{on}}{R_L} = \\frac{600 - 2.2}{300} = \\frac{597.8}{300} = 1.993\\text{ A}$$\n\n**(a) Device power gain:**\n$$P_{out} = V_{load} \\times I_{load} = 597.8 \\times 1.993 = 1191.5\\text{ W}$$\n$$\\text{Power gain} = \\frac{P_{out}}{P_g} = \\frac{1191.5}{10} = \\boxed{119.15}$$\n\n**(b) Turn-on current gain:**\n$$\\beta_{on} = \\frac{I_{load}}{I_{g(on)}} = \\frac{1.993}{0.5} = \\boxed{3.99}$$\n\n**(c) Turn-off current gain:**\n$$\\beta_{off} = \\frac{I_{load}}{|I_{g(off)}|} = \\frac{1.993}{25} = \\boxed{0.0797}$$",
+    topic: "Power Calculations",
     difficulty: "hard"
   },
   {
-    question: "A UJT oscillator has η = 0.66, Vₚ = 14V, Vᵥ = 1V, Iₚ = 0.5mA, Iᵥ = 3mA, and f = 2kHz. Design the circuit: find Vₛ, R, R_B1, R_B2.",
-    answer: "**Step 1 – Find Vₛ:**\n$$V_P = \\eta V_S + V_D \\Rightarrow 14 = 0.66 V_S + 0.8$$\n$$V_S = \\frac{13.2}{0.66} = 20\\text{ V}$$\n\n**Step 2 – Find R (charging resistor):**\n$$\\ln\\left(\\frac{1}{1-0.66}\\right) = \\ln(2.94) = 1.079$$\n$$R = \\frac{1}{2000 \\times 0.04\\times10^{-6} \\times 1.079} = 11.6\\text{ kΩ}$$\n\n**Step 3 – Find Rₑ₁ and Rₑ₂:**\n$$R_{B1} = \\eta R_{BB} = 0.66 \\times 5000 = 3.3\\text{ kΩ}$$\n$$R_{B2} = 5000 - 3300 = 1.7\\text{ kΩ}$$\n\n**Circuit:** Supply 20V → R(11.6kΩ) → C(0.04μF) to base B₁ through Rₑ₁(3.3kΩ); Rₑ₂(1.7kΩ) to ground.",
-    topic: "Gate Drive & Triggering",
-    difficulty: "hard"
+    question: "Calculate the thermal junction temperature. Given: Power dissipation = 75W, junction-to-case thermal resistance = 0.55°C/W, case-to-sink = 0.11°C/W, sink-to-ambient = 0.14°C/W, ambient temperature = 25°C.",
+    answer: "**Thermal resistance chain formula:**\n$$T_J = T_A + P_{dissipated} \\times (R_{\\theta JC} + R_{\\theta CS} + R_{\\theta SA})$$\n\n**Total thermal resistance:**\n$$R_{\\theta total} = 0.55 + 0.11 + 0.14 = 0.80\\text{ °C/W}$$\n\n**Junction temperature:**\n$$T_J = 25 + 75 \\times 0.80$$\n$$T_J = 25 + 60 = \\boxed{85\\text{ °C}}$$\n\n**Interpretation:** For every 1W dissipated, the junction temperature rises 0.8°C above ambient. At 75W loss, the junction is 60°C above the ambient temperature of 25°C, giving a final junction temperature of 85°C.",
+    topic: "Thermal Analysis",
+    difficulty: "medium"
   },
 
   // ============================================
-  // SNUBBER DESIGN & PROTECTION
+  // SNUBBER CIRCUIT DESIGN & PROTECTION
   // ============================================
   {
-    question: "Explain the purpose of snubber circuits. What are the two components and their functions?",
-    answer: "**Purpose:** A snubber circuit protects thyristors from false turn-on caused by **dv/dt** (rate of voltage change) across the device. When voltage rises too rapidly, capacitive current can falsely trigger the device.\n\n**Components:**\n\n1) **Capacitor (Cₛ)** – Limits the rate of voltage rise by providing a parallel path for displacement current. Acts as a low-impedance path for high-frequency components.\n\n2) **Resistor (Rₛ)** – Limits the discharge current when the SCR turns on. When the SCR switches, the capacitor discharges through Rₛ, preventing excessive di/dt. Also provides damping to reduce oscillations.\n\n**Typical values:** $$C_s = 0.1 - 1\\text{ μF}$$, $$R_s = 4 - 10\\text{ Ω}$$",
-    topic: "Protection Circuits"
-  },
-  {
-    question: "Design a snubber circuit for an SCR with: Peak supply 400V, max dv/dt = 200V/μs, max di/dt = 50A/μs, load R = 10Ω, safety factor = 2.",
-    answer: "**Step 1 – Apply safety factor:**\n$$\\left(\\frac{dv}{dt}\\right)_{allowed} = \\frac{200}{2} = 100\\text{ V/μs}$$\n$$\\left(\\frac{di}{dt}\\right)_{allowed} = \\frac{50}{2} = 25\\text{ A/μs}$$\n\n**Step 2 – Calculate inductance L (di/dt protection):**\n$$L = \\frac{V_S}{(di/dt)_{allowed}} = \\frac{400}{25\\times10^6} = 16\\text{ μH}$$\n\n**Step 3 – Calculate snubber capacitor Cₛ:**\nInitial dv/dt after turn-off: $$\\frac{dv}{dt} = \\frac{V_S}{R_L C_s}$$\n$$C_s = \\frac{V_S}{R_L \\cdot (dv/dt)_{allowed}} = \\frac{400}{10 \\times 100\\times10^6} = 0.4\\text{ μF}$$\n\n**Step 4 – Calculate snubber resistor Rₛ:**\nAllowed peak snubber discharge current = 100A (safety factor applied)\n$$R_s = \\frac{V_S}{100} = \\frac{400}{100} = 4\\text{ Ω}$$\n\n**Result:** Series inductor L = 16μH, RC snubber: Rₛ = 4Ω, Cₛ = 0.4μF",
-    topic: "Protection Circuits",
-    difficulty: "hard"
-  },
-  {
-    question: "Calculate the thermal resistance and junction temperature. Given: Pₐᵥ = 75W, Rθⱼ꜀ = 0.55°C/W, Rθ꜀ₛ = 0.11°C/W, Rθₛₐ = 0.14°C/W, Tₐ = 25°C.",
-    answer: "**Thermal resistance chain:**\n$$T_J = T_A + P_A (R_{\\theta JC} + R_{\\theta CS} + R_{\\theta SA})$$\n\n**Substituting values:**\n$$T_J = 25 + 75 \\times (0.55 + 0.11 + 0.14)$$\n$$T_J = 25 + 75 \\times 0.8$$\n$$T_J = 25 + 60 = 85°C$$\n\n**Thermal resistances:**\n- Junction to case: 0.55°C/W\n- Case to sink: 0.11°C/W  \n- Sink to ambient: 0.14°C/W\n- **Total:** 0.8°C/W\n\n**Interpretation:** For every 1W dissipated, junction temperature rises 0.8°C above ambient. At 75W loss, the junction is 60°C above ambient.",
+    question: "Explain the purpose of snubber circuits. What are the two main components and their functions?",
+    answer: "**Purpose:**\nA snubber circuit protects thyristors from **false turn-on** caused by excessive $$dv/dt$$ (rate of voltage change) across the device. When voltage rises too rapidly, capacitive current can inadvertently trigger the device. Snubbers limit both $$dv/dt$$ and $$di/dt$$ to safe levels.\n\n**Component 1: Capacitor ($$C_s$$)**\n- Limits the rate of voltage rise by providing a parallel path for displacement current\n- Acts as a low-impedance path for high-frequency components\n- Typical values: 0.1 - 1 μF\n\n**Component 2: Resistor ($$R_s$$)**\n- Limits the discharge current when the SCR/thyristor turns on\n- When the device switches, the capacitor discharges through $$R_s$$, preventing excessive $$di/dt$$\n- Provides damping to reduce oscillations and ringing\n- Typical values: 4 - 10 Ω\n\n**Combined function:** The RC snubber provides both overvoltage and overcurrent protection.",
     topic: "Protection Circuits",
     difficulty: "medium"
   },
-
-  // ============================================
-  // COMMUTATION (SCR TURN-OFF)
-  // ============================================
   {
-    question: "Define commutation and explain why it is necessary in DC circuits but not in AC circuits.",
-    answer: "**Commutation** is the process of turning off a thyristor by reducing the anode current below the holding current and applying a reverse voltage for sufficient time to allow the device to regain its forward blocking capability.\n\n**AC circuits (natural commutation):**\n- The AC voltage naturally reverses every half-cycle\n- Anode current passes through zero, automatically turning off the SCR\n- No external circuits required\n\n**DC circuits (forced commutation):**\n- Supply voltage never reverses\n- Anode current cannot naturally reach zero\n- External commutation circuits required using LC resonance or capacitor reversal\n- Must actively apply reverse voltage to force turn-off",
-    topic: "Commutation & Switching"
-  },
-  {
-    question: "For resonant pulse commutation with C = 25μF, L = 8μH, Vₛ = 250V, Iₗ = 310A (constant load), find: (a) conduction time of auxiliary SCR, (b) peak reverse voltage on main SCR, (c) turn-off time.",
-    answer: "**Step 1 – Resonant frequency:**\n$$\\omega_0 = \\frac{1}{\\sqrt{LC}} = \\frac{1}{\\sqrt{8\\times10^{-6} \\times 25\\times10^{-6}}} = 70710\\text{ rad/s}$$\n\n**Step 2 – Resonant period:**\n$$T_0 = \\frac{2\\pi}{\\omega_0} = \\frac{6.283}{70710} = 88.86\\text{ μs}$$\n\n**(a) Conduction time of auxiliary SCR = T₀/2 = 44.43μs**\n\n**(b) Peak reverse voltage:**\nWhen auxiliary fires, capacitor reverses. Maximum reverse voltage across main SCR = **-250V**\n\n**(c) Turn-off time:**\nTime for capacitor to reverse from +Vₛ to -Vₛ at constant Iₗ:\n$$t_{off} = \\frac{CV_S}{I_L} = \\frac{25\\times10^{-6} \\times 250}{310} = 20.16\\text{ μs}$$",
-    topic: "Commutation & Switching",
+    question: "Design a snubber circuit for an SCR with: Peak supply = 400V, max dv/dt = 200V/μs, max di/dt = 50A/μs, load resistance = 10Ω, safety factor = 2.",
+    answer: "**Step 1: Apply safety factor to allowed values**\n$$\\left(\\frac{dv}{dt}\\right)_{allowed} = \\frac{200}{2} = 100\\text{ V/μs}$$\n$$\\left(\\frac{di}{dt}\\right)_{allowed} = \\frac{50}{2} = 25\\text{ A/μs}$$\n\n**Step 2: Calculate series inductor L for di/dt protection**\n$$L = \\frac{V_m}{(di/dt)_{allowed}} = \\frac{400}{25 \\times 10^6} = \\boxed{16\\text{ μH}}$$\n\n**Step 3: Calculate snubber capacitor $$C_s$$ from dv/dt limit**\n\nAfter turn-off, voltage rises with time constant $$R_L C_s$$. Initial slope: $$\\frac{dv}{dt} = \\frac{V_m}{R_L C_s}$$\n\n$$C_s = \\frac{V_m}{R_L \\times (dv/dt)_{allowed}} = \\frac{400}{10 \\times 100 \\times 10^6} = \\boxed{0.4\\text{ μF}}$$\n\n**Step 4: Calculate snubber resistor $$R_s$$**\n\nAllowed peak snubber discharge current = $$I_p / 2 = 100\\text{ A}$$ (with safety factor)\n\n$$R_s = \\frac{V_m}{100\\text{ A}} = \\frac{400}{100} = \\boxed{4\\text{ Ω}}$$\n\n**Final Circuit:** Series inductor $$L = 16\\text{ μH}$$ in anode line, RC snubber $$(R_s = 4\\text{ Ω}, C_s = 0.4\\text{ μF})$$ across thyristor.",
+    topic: "Protection Circuits",
     difficulty: "hard"
   },
 
   // ============================================
-  // RECTIFICATION
+  // UJT & RELAXATION OSCILLATORS
   // ============================================
   {
-    question: "For a single-phase half-wave controlled rectifier with Vₘ = 325V, R = 20Ω, α = 45°, calculate: (a) DC voltage, (b) DC current, (c) RMS voltage.",
-    answer: "**Given:** $$V_m = 325\\text{ V}$$, $$R = 20\\text{ Ω}$$, $$\\alpha = 45° = \\pi/4$$\n\n**(a) DC voltage:**\n$$V_{dc} = \\frac{V_m}{2\\pi}(1 + \\cos\\alpha) = \\frac{325}{6.283}(1 + \\cos 45°)$$\n$$V_{dc} = 51.73 \\times 1.7071 = 88.31\\text{ V}$$\n\n**(b) DC current:**\n$$I_{dc} = \\frac{V_{dc}}{R} = \\frac{88.31}{20} = 4.416\\text{ A}$$\n\n**(c) RMS voltage:**\n$$V_{rms} = V_m\\sqrt{\\frac{1}{4\\pi}\\left(2\\pi - 2\\alpha + \\sin 2\\alpha\\right)}$$\n\nWith $$\\sin 2\\alpha = \\sin 90° = 1$$:\n$$V_{rms} = 325 \\times \\sqrt{\\frac{5.7124}{12.566}} = 325 \\times 0.6743 = 219.1\\text{ V}$$",
-    topic: "Rectifiers & Converters",
-    difficulty: "hard"
-  },
-  {
-    question: "Calculate rectification efficiency, ripple factor, and PIV for the above half-wave rectifier.",
-    answer: "**From previous calculation:** $$V_{dc} = 88.31\\text{ V}$$, $$I_{dc} = 4.416\\text{ A}$$, $$V_{rms} = 219.1\\text{ V}$$, $$I_{rms} = 10.96\\text{ A}$$\n\n**Rectification efficiency:**\n$$\\eta = \\frac{P_{dc}}{P_{ac}} = \\frac{V_{dc}I_{dc}}{V_{rms}I_{rms}} = \\frac{88.31 \\times 4.416}{219.1 \\times 10.96} = \\frac{390}{2402} = 16.24\\%$$\n\n**Ripple factor:**\n$$RF = \\sqrt{\\left(\\frac{V_{rms}}{V_{dc}}\\right)^2 - 1} = \\sqrt{(2.482)^2 - 1} = \\sqrt{5.16} = 2.272$$\n\n**PIV (Peak Inverse Voltage):**\nFor half-wave rectifier:\n$$PIV = V_m = 325\\text{ V}$$",
-    topic: "Rectifiers & Converters",
-    difficulty: "medium"
-  },
-
-  // ============================================
-  // DC-DC CONVERTERS
-  // ============================================
-  {
-    question: "For a buck converter: Vₛ = 12V, Vₒ = 5V, f = 25kHz, ΔI = 0.8A (inductor ripple), ΔV = 20mV (output ripple). Calculate duty cycle, filter inductance L, and filter capacitance C.",
-    answer: "**Step 1 – Duty cycle (D):**\n$$V_o = D \\cdot V_s \\Rightarrow D = \\frac{V_o}{V_s} = \\frac{5}{12} = 0.4167$$\n\n**Step 2 – Filter inductor L:**\nInductor ripple current: $$\\Delta I = \\frac{(V_s - V_o) \\cdot D}{L \\cdot f}$$\n$$L = \\frac{(V_s - V_o) \\cdot D}{\\Delta I \\cdot f} = \\frac{7 \\times 0.4167}{0.8 \\times 25000} = \\frac{2.917}{20000} = 146\\text{ μH}$$\n\n**Step 3 – Filter capacitor C:**\n$$\\Delta V = \\frac{\\Delta I}{8fC}$$\n$$C = \\frac{\\Delta I}{8f\\Delta V} = \\frac{0.8}{8 \\times 25000 \\times 0.02} = \\frac{0.8}{4000} = 200\\text{ μF}$$\n\n**Result:** D = 0.4167, L = 146μH, C = 200μF",
-    topic: "Rectifiers & Converters",
-    difficulty: "hard"
-  },
-  {
-    question: "For a buck-boost converter: Vₛ = 12V, D = 0.25, f = 25kHz, L = 150μH, C = 220μF, Iₐ = 1.25A. Calculate: (a) average output voltage, (b) output ripple voltage, (c) inductor ripple current, (d) peak transistor current.",
-    answer: "**Given:** Inverting buck-boost topology\n\n**(a) Average output voltage:**\n$$V_a = -\\frac{D}{1-D}V_s = -\\frac{0.25}{0.75} \\times 12 = -4\\text{ V}$$\n\n**(b) Output ripple voltage:**\n$$\\Delta V_o = \\frac{I_a D}{fC} = \\frac{1.25 \\times 0.25}{25000 \\times 220\\times10^{-6}} = \\frac{0.3125}{5.5} = 56.8\\text{ mV}$$\n\n**(c) Inductor ripple current:**\n$$\\Delta I_L = \\frac{V_s D}{fL} = \\frac{12 \\times 0.25}{25000 \\times 150\\times10^{-6}} = \\frac{3}{3.75} = 0.8\\text{ A}$$\n\n**(d) Peak transistor current:**\nAverage inductor current: $$I_L = \\frac{I_a}{1-D} = \\frac{1.25}{0.75} = 1.667\\text{ A}$$\nPeak current: $$I_{pk} = I_L + \\frac{\\Delta I_L}{2} = 1.667 + 0.4 = 2.067\\text{ A}$$",
-    topic: "Rectifiers & Converters",
-    difficulty: "hard"
-  },
-
-  // ============================================
-  // INVERTERS
-  // ============================================
-  {
-    question: "For a single-phase half-bridge inverter: R = 2.4Ω, Vₛ = 48V. Calculate: (a) fundamental RMS voltage, (b) output power, (c) peak and average transistor currents, (d) peak reverse blocking voltage.",
-    answer: "**Given:** Half-bridge inverts DC to AC\n\n**(a) Fundamental RMS voltage at output:**\n$$V_{1,rms} = \\frac{2V_s}{\\pi\\sqrt{2}} = \\frac{2 \\times 48}{4.443} = 21.6\\text{ V}$$\n\n**(b) Output power:**\n$$P_o = \\frac{(V_s/2)^2}{R} = \\frac{24^2}{2.4} = \\frac{576}{2.4} = 240\\text{ W}$$\n\n**(c) Peak current:**\n$$I_{pk} = \\frac{V_s/2}{R} = \\frac{24}{2.4} = 10\\text{ A}$$\nAverage current (each transistor conducts half-period):\n$$I_{avg} = \\frac{I_{pk}}{2} = 5\\text{ A}$$\n\n**(d) Peak reverse blocking voltage (each transistor):**\n$$V_{Br} = V_s = 48\\text{ V}$$",
-    topic: "Inverters & AC Synthesis",
+    question: "Define the intrinsic stand-off ratio (η) of a UJT. What is the formula for peak voltage?",
+    answer: "**Intrinsic stand-off ratio (η):**\n\n$$\\eta = \\frac{R_{B1}}{R_{BB}}$$\n\nWhere:\n- $$R_{B1}$$ = resistance from emitter to base B₁\n- $$R_{BB}$$ = total interbase resistance ($$R_{B1} + R_{B2}$$)\n- Typical range: 0.51 - 0.82\n\n**Peak voltage (emitter firing potential):**\n\n$$V_P = \\eta V_{BB} + V_D$$\n\nWhere $$V_D ≈ 0.5\\text{ V}$$ is the diode drop at the emitter junction.\n\n**Example:**\nIf $$\\eta = 0.7$$ and $$V_{BB} = 20\\text{ V}$$:\n$$V_P = 0.7 \\times 20 + 0.5 = 14.5\\text{ V}$$\n\nThis peak voltage is where the UJT fires (emitter current drops dramatically and base current increases).",
+    topic: "Gate Drive & Triggering",
     difficulty: "medium"
   },
   {
-    question: "For a single-phase full-bridge inverter: R = 2.4Ω, Vₛ = 48V. Calculate: (a) fundamental RMS voltage, (b) output power, (c) harmonic voltage, (d) THD.",
-    answer: "**Full-bridge configuration (4 switches in bridge):**\n\n**(a) Fundamental RMS voltage:**\n$$V_{1,rms} = \\frac{4V_s}{\\pi\\sqrt{2}} = \\frac{4 \\times 48}{4.443} = 43.2\\text{ V}$$\n\n**(b) Output power:**\n$$P_o = \\frac{V_s^2}{R} = \\frac{48^2}{2.4} = \\frac{2304}{2.4} = 960\\text{ W}$$\n\n**(c) RMS output voltage:**\n$$V_{o,rms} = V_s = 48\\text{ V}$$\n\nHarmonic voltage:\n$$V_{harm} = \\sqrt{V_{o,rms}^2 - V_{1,rms}^2} = \\sqrt{48^2 - 43.2^2} = \\sqrt{436} = 20.9\\text{ V}$$\n\n**(d) Total harmonic distortion:**\n$$THD = \\frac{V_{harm}}{V_{1,rms}} = \\frac{20.9}{43.2} = 0.484 = 48.4\\%$$",
-    topic: "Inverters & AC Synthesis",
-    difficulty: "hard"
-  },
-
-  // ============================================
-  // AC VOLTAGE CONTROL
-  // ============================================
-  {
-    question: "Explain on-off control (integral cycle control) for AC voltage regulators with waveform description.",
-    answer: "**On-off control (integral cycle control):**\n\nThe thyristors are turned **ON for a whole number of cycles** and **OFF for a whole number of cycles**.\n\n**Output voltage waveform:**\n- When ON: full sinewaves pass through (peak = Vₘ)\n- When OFF: zero voltage output\n- Creates **bursts** of full cycles separated by zero intervals\n\n**Duty cycle:**\n$$D = \\frac{\\text{ON cycles}}{\\text{ON cycles + OFF cycles}}$$\n\n**RMS output voltage:**\n$$V_{o,rms} = V_s \\sqrt{D}$$\n\n**Example:** 30 ON cycles, 40 OFF cycles at 50Hz\n- ON time: 30 × 0.02 = 0.6s\n- OFF time: 40 × 0.02 = 0.8s  \n- D = 30/70 = 0.4286\n- $$V_{o,rms} = 230 \\times \\sqrt{0.4286} = 150.6\\text{ V}$$\n\n**Advantage:** Minimal EMI (switching at zero crossings)\n**Disadvantage:** Coarse control (limited to integer cycles)",
-    topic: "AC Voltage Control",
-    difficulty: "medium"
-  },
-  {
-    question: "Explain phase control for AC voltage regulation with waveform description.",
-    answer: "**Phase control:**\n\nThe thyristor is **triggered at a delay angle α within each half-cycle**. Output voltage begins at α and ends at π.\n\n**Output voltage waveform:**\n- For 0 < ωt < α: output = 0V (thyristor blocking)\n- For α < ωt < π: output follows supply sinusine (thyristor conducting)\n- For π < ωt < 2π: negative half-cycle (reverse blocking)\n\n**Firing angle α:**\n- α = 0° → full voltage output (Vdc maximum)\n- α = 90° → half voltage output (Vdc = Vm/π)\n- α = 180° → zero voltage output\n\n**RMS output voltage:**\n$$V_{o,rms} = V_s\\sqrt{\\frac{1}{\\pi}\\left(\\pi - \\alpha + \\frac{\\sin 2\\alpha}{2}\\right)}$$\n\n**Advantages:**\n- Smooth, continuous control from 0 to maximum\n- Simple circuit with only one gate delay circuit\n\n**Disadvantages:**\n- Generates harmonics in input current (due to non-sinusoidal conduction)\n- Creates EMI (switching at arbitrary times, not zero-crossings)",
-    topic: "AC Voltage Control",
-    difficulty: "medium"
-  },
-  {
-    question: "For single-phase AC voltage controller: Vₛ = 110V (rms), R = 20Ω, α = π/3 (60°). Calculate (a) RMS output voltage, (b) input power factor, (c) average thyristor current.",
-    answer: "**Given:** $$V_s = 110\\text{ V}$$, $$R = 20\\text{ Ω}$$, $$\\alpha = 60°$$\n\n**(a) RMS output voltage:**\nFor bidirectional AC controller:\n$$V_{o,rms} = V_s\\sqrt{\\frac{1}{\\pi}\\left(\\pi - \\alpha + \\frac{\\sin 2\\alpha}{2}\\right)}$$\n\nWith $$\\sin 120° = 0.866$$:\n$$V_{o,rms} = 110\\sqrt{\\frac{1}{\\pi}\\left(3.142 - 1.047 + 0.433\\right)}$$\n$$V_{o,rms} = 110 \\times 0.897 = 98.7\\text{ V}$$\n\n**(b) Input power factor:**\nFor resistive load:\n$$PF = \\frac{V_{o,rms}}{V_s} = \\frac{98.7}{110} = 0.897$$\n\n**(c) Average thyristor current:**\nFor half-wave conduction (one thyristor):\n$$I_{T,avg} = \\frac{V_m}{2\\pi R}(1 + \\cos\\alpha) = \\frac{155.56}{125.66}(1.5) = 1.86\\text{ A}$$",
-    topic: "AC Voltage Control",
-    difficulty: "hard"
-  },
-
-  // ============================================
-  // DIAC & TRIAC
-  // ============================================
-  {
-    question: "Define a DIAC and explain its V-I characteristic. What is its primary application?",
-    answer: "**DIAC (Diode for Alternating Current):**\n\nA **two-terminal, bidirectional thyristor** that conducts only after its breakover voltage (Vₚₒ) is reached in either polarity.\n\n**Construction:** Four-layer PNPN with symmetric doping (P1-N1-P2-N2)\n\n**V-I Characteristic:**\n- For |V| < Vₚₒ (typically 30-40V): **high impedance** (leakage only)\n- At |V| = Vₚₒ: **sharp break-over** → low-impedance conduction\n- Conducts until current falls below **holding current**\n- **Symmetric** for both polarities (± characteristics identical)\n\n**Key parameters:**\n- Breakover voltage: 30-40V typical\n- Holding current: 1-10mA\n\n**Primary application:**\n**Triggering TRIACs** in AC power control circuits:\n- Lamp dimmers (lighting control)\n- Heat controllers (oven/heater control)\n- Fan speed control\n- AC motor speed regulation\n\n**Circuit:** DIAC in series with RC network connected to TRIAC gate. Phase shift across RC determines firing angle.",
-    topic: "AC Control Devices",
-    difficulty: "medium"
-  },
-  {
-    question: "For DIAC firing circuit with C = 470nF, Vₛ = 240V (rms), R = 1000Ω to 25000Ω, Vₚₒ = 40V, f = 50Hz. Find minimum and maximum firing angles.",
-    answer: "**Step 1 – Capacitive reactance:**\n$$X_C = \\frac{1}{2\\pi fC} = \\frac{1}{2\\pi \\times 50 \\times 470\\times10^{-9}} = 6773\\text{ Ω}$$\n\n**Step 2 – For Rmin = 1000Ω:**\nImpedance: $$Z = \\sqrt{1000^2 + 6773^2} = 6846\\text{ Ω}$$\nPhase: $$\\theta = \\tan^{-1}(6773/1000) = 81.6°$$\nPeak capacitor voltage: $$V_{C,pk} = \\sqrt{2} \\times 240 \\times \\frac{6773}{6846} = 335.8\\text{ V}$$\nFiring condition: $$40 = 335.8\\sin(\\omega t - 81.6°)$$\n$$\\omega t - 81.6° = 6.84° \\Rightarrow \\alpha_{min} = 88.5° ≈ 89°$$\n\n**Step 3 – For Rmax = 25000Ω:**\nImpedance: $$Z = \\sqrt{25000^2 + 6773^2} = 25900\\text{ Ω}$$  \nPhase: $$\\theta = \\tan^{-1}(6773/25000) = 15.16°$$\nPeak capacitor voltage: $$V_{C,pk} = \\sqrt{2} \\times 240 \\times \\frac{6773}{25900} = 88.8\\text{ V}$$\nFiring condition: $$40 = 88.8\\sin(\\omega t - 15.16°)$$\n$$\\omega t - 15.16° = 26.8° \\Rightarrow \\alpha_{max} = 42°$$\n\n**Result:** αmin ≈ 89°, αmax ≈ 42°",
-    topic: "AC Control Devices",
-    difficulty: "hard"
-  },
-
-  // ============================================
-  // ADDITIONAL EXAM TOPICS
-  // ============================================
-  {
-    question: "What is the reverse recovery time (tᵣᵣ) of a diode? A diode has tᵣᵣ = 3μs and diᵣ/dt = 30A/μs. Calculate storage charge Qᵣᵣ and peak reverse current Iᵣᵣ.",
-    answer: "**Reverse recovery time (tᵣᵣ):** The time taken for a diode to recover from forward conduction to reverse blocking when the forward current is suddenly reversed. Includes **storage time** (tₛ) and **fall time** (tₓ).\n\n**Given:** $$t_{rr} = 3\\text{ μs}$$, $$\\frac{di}{dt} = 30\\text{ A/μs}$$\n\n**Peak reverse current:**\n$$I_{rr} = \\frac{di}{dt} \\times t_{rr} = 30 \\times 10^6 \\times 3 \\times 10^{-6} = 90\\text{ A}$$\n\n**Storage charge (integral of recovery current):**\nAssuming linear recovery current waveform:\n$$Q_{rr} = \\frac{1}{2} I_{rr} \\times t_{rr} = \\frac{1}{2} \\times 90 \\times 3\\times10^{-6} = 135\\text{ μC}$$\n\nAlternatively:\n$$Q_{rr} = \\frac{1}{2}\\left(\\frac{di}{dt}\\right) \\times t_{rr}^2 = \\frac{1}{2} \\times 30\\times10^6 \\times (3\\times10^{-6})^2 = 135\\text{ μC}$$\n\n**Key insight:** Fast recovery diodes (Au-doped) have short tᵣᵣ (<100ns) for high-frequency applications.",
-    topic: "Power Diodes",
-    difficulty: "medium"
-  },
-  {
-    question: "An SCR rated 800V PIV with safety factor 2 is operating a resistive load. What is the maximum operating voltage? Why is a safety factor applied?",
-    answer: "**Maximum operating voltage:**\n$$V_{op} = \\frac{\\text{PIV}}{\\text{Safety factor}} = \\frac{800}{2} = 400\\text{ V}$$\n\n**Why safety factor?**\n\n1) **Voltage transients** – Switching spikes and supply noise can exceed rated voltage\n2) **Aging effects** – Device parameters degrade over time\n3) **Temperature variation** – Breakdown voltage decreases at higher temperatures\n4) **Reliability margin** – Prevents infant mortality and early failure\n5) **Component tolerance** – Rated values have ±10-20% variation\n6) **Design margin** – Accounts for unknown system transients\n\n**Standard practice:**\n- Minimum safety factor: 2×\n- Conservative design: 3-4×\n- Critical applications: 5×\n\n**Example:** A 650V rated SCR would operate at 325V with 2× safety factor, allowing ±150V transients without damage.",
-    topic: "Device Ratings & Selection"
-  },
-  {
-    question: "Compare GTO (Gate Turn-Off) thyristor with SCR in terms of advantages and disadvantages.",
-    answer: "| Feature | SCR | GTO |\n|---------|-----|-----|\n| **Turn-off method** | Natural commutation (AC) or forced (DC) | Gate pulse (negative) |\n| **On-state voltage** | 1-2V | 2-4V (higher) |\n| **Gate current for turn-on** | Small (~mA) | Small (~mA) |\n| **Gate current for turn-off** | Not applicable | Large (~1/3 to 1/5 of anode current) |\n| **Switching frequency** | 50-100Hz typical | 1-10kHz capability |\n| **Snubber circuit** | Needed | Simpler (no commutation) |\n| **Cost** | Low | High |\n| **Gate drive circuit** | Simple | Complex |\n| **Noise immunity** | Moderate | Better |\n\n**Advantages of GTO:**\n- Can be turned off by gate signal\n- No external commutation circuit needed\n- Higher switching frequency capability\n\n**Disadvantages of GTO:**\n- Higher conduction losses (higher Vₒₙ)\n- Requires large negative gate current\n- Complex gate driver circuit\n- More expensive",
-    topic: "Thyristor Types & Selection"
-  },
-  {
-    question: "Design a PUT relaxation oscillator for SCR triggering: f = 60Hz, Vₛ = 30V, η = 0.51, Iₚ = 10μA, Vᵥ = 3.5V, Iᵥ = 10mA, tₘ = 50μs, C = 0.5μF. Find R, Rₑ₁, Rₑ₂.",
-    answer: "**Step 1 – Peak voltage:**\n$$V_P = \\eta V_S + V_D = 0.51 \\times 30 + 0.7 = 16.0\\text{ V}$$\n\n**Step 2 – Charging resistor R:**\n$$\\ln\\left(\\frac{1}{1-\\eta}\\right) = \\ln(1/0.49) = 0.7133$$\n$$R = \\frac{1}{fC\\ln(1/(1-\\eta))} = \\frac{1}{60 \\times 0.5\\times10^{-6} \\times 0.7133} = 46.7\\text{ kΩ}$$\n\n**Verify R within limits:**\n$$R_{max} = \\frac{V_S - V_P}{I_P} = \\frac{14}{10\\times10^{-6}} = 1.4\\text{ MΩ}$$ ✓\n$$R_{min} = \\frac{V_S - V_V}{I_V} = \\frac{26.5}{0.01} = 2.65\\text{ kΩ}$$ ✓\n\n**Step 3 – Base resistors:**\n$$R_{B1} = \\frac{t_g}{C} = \\frac{50\\times10^{-6}}{0.5\\times10^{-6}} = 100\\text{ Ω}$$\n\n$$R_{B2} = \\frac{10^4}{\\eta V_S} = \\frac{10000}{0.51 \\times 30} = 654\\text{ Ω}$$\n\n**Result:** R = 46.7kΩ, Rₑ₁ = 100Ω, Rₑ₂ = 654Ω",
+    question: "Derive the frequency formula for a UJT relaxation oscillator. What conditions must be satisfied for stable oscillation?",
+    answer: "**Frequency formula:**\n\n$$f = \\frac{1}{RC \\ln\\left(\\frac{1}{1-\\eta}\\right)}$$\n\nWhere:\n- $$R$$ = charging resistor (external to UJT)\n- $$C$$ = timing capacitor\n- $$\\eta$$ = intrinsic stand-off ratio\n\n**Conditions for stable oscillation:**\n\n$$R_{min} < R < R_{max}$$\n\nWhere:\n$$R_{min} = \\frac{V_S - V_V}{I_V}$$\n\n$$R_{max} = \\frac{V_S - V_P}{I_P}$$\n\n- $$V_S$$ = supply voltage\n- $$V_P$$ = peak voltage (firing point)\n- $$V_V$$ = valley voltage\n- $$I_P$$ = peak current\n- $$I_V$$ = valley current\n\n**Design Example:**\nFor $$\\eta = 0.7$$, $$f = 1.5\\text{ kHz}$$, $$C = 0.04\\text{ μF}$$:\n$$R = \\frac{1}{1500 \\times 0.04\\times10^{-6} \\times \\ln(1/(1-0.7))} = 13.84\\text{ kΩ}$$",
     topic: "Gate Drive & Triggering",
     difficulty: "hard"
-  }
-];
+  },
 
-export const EXAM_CARD_TOPICS = [
-  'Thyristors & Diodes',
-  'Gate Drive & Triggering',
-  'Protection Circuits',
-  'Commutation & Switching',
-  'Rectifiers & Converters',
-  'Inverters & AC Synthesis',
-  'AC Voltage Control',
-  'AC Control Devices',
-  'Power Diodes',
-  'Device Ratings & Selection',
-  'Thyristor Types & Selection'
-];
+  // ============================================
+  // RECTIFIER CIRCUITS & EFFICIENCY
+  // ============================================
+  {
+    question: "For a single-phase half-wave controlled rectifier with secondary voltage $$v_s = 325\\sin(\\omega t)$$ V, load resistance = 20Ω, and firing angle α = 45°, calculate: (a) DC voltage and current, (b) RMS voltage and current.",
+    answer: "**Given:** $$V_m = 325\\text{ V}, R = 20\\text{ Ω}, \\alpha = 45° = \\pi/4\\text{ rad}$$\n\n**(a) DC (average) values:**\n\n$$V_{dc} = \\frac{V_m}{2\\pi}(1 + \\cos\\alpha) = \\frac{325}{2\\pi}\\left(1 + \\cos\\frac{\\pi}{4}\\right)$$\n$$V_{dc} = \\frac{325}{2\\pi}(1 + 0.7071) = \\frac{325 \\times 1.7071}{6.2832} = \\boxed{88.31\\text{ V}}$$\n\n$$I_{dc} = \\frac{V_{dc}}{R} = \\frac{88.31}{20} = \\boxed{4.416\\text{ A}}$$\n\n**(b) RMS values:**\n\n$$V_{rms} = V_m\\sqrt{\\frac{1}{4\\pi}\\left(2\\pi - 2\\alpha + \\sin 2\\alpha\\right)}$$\n$$V_{rms} = 325\\sqrt{\\frac{1}{4\\pi}\\left(2\\pi - \\frac{\\pi}{2} + \\sin\\frac{\\pi}{2}\\right)} = 325\\sqrt{0.4546}$$\n$$V_{rms} = 325 \\times 0.6743 = \\boxed{219.2\\text{ V}}$$\n\n$$I_{rms} = \\frac{V_{rms}}{R} = \\frac{219.2}{20} = \\boxed{10.96\\text{ A}}$$",
+    topic: "Rectifier Circuits",
+    difficulty: "hard"
+  },
+  {
+    question: "For the same half-wave rectifier, calculate: (a) rectification efficiency, (b) ripple factor, (c) Peak Inverse Voltage (PIV).",
+    answer: "**Using data from previous calculation:**\n$$V_{dc} = 88.31\\text{ V}, I_{dc} = 4.416\\text{ A}$$\n$$V_{rms} = 219.2\\text{ V}, I_{rms} = 10.96\\text{ A}$$\n\n**(a) Rectification efficiency:**\n\n$$\\eta = \\frac{P_{dc}}{P_{ac}} = \\frac{V_{dc} \\times I_{dc}}{V_{rms} \\times I_{rms}}$$\n$$P_{dc} = 88.31 \\times 4.416 = 390.0\\text{ W}$$\n$$P_{ac} = 219.2 \\times 10.96 = 2402\\text{ W}$$\n$$\\eta = \\frac{390}{2402} = \\boxed{16.24\\%}$$\n\n**(b) Ripple factor:**\n\n$$RF = \\sqrt{\\left(\\frac{V_{rms}}{V_{dc}}\\right)^2 - 1} = \\sqrt{\\left(\\frac{219.2}{88.31}\\right)^2 - 1}$$\n$$RF = \\sqrt{(2.482)^2 - 1} = \\sqrt{6.160 - 1} = \\sqrt{5.160} = \\boxed{2.272}$$\n\n**(c) Peak Inverse Voltage:**\n\nFor half-wave rectifier:\n$$PIV = V_m = \\boxed{325\\text{ V}}$$\n\nThis is the maximum reverse voltage the diode/thyristor must withstand.",
+    topic: "Rectifier Circuits",
+    difficulty: "hard"
+  },
 
-export const TOTAL_CARDS_COUNT = RESEARCH_METHODS_CARDS.length;
+  // ============================================
+  // dv/dt & di/dt CAPABILITY
+  // ============================================
+  {
+    question: "A thyristor has a junction capacitance of 25 pF and can be triggered by a charging current of 5 mA through the junction. Calculate its dv/dt capability.",
+    answer: "**Relationship between capacitive current and voltage change rate:**\n\n$$i_C = C\\frac{dv}{dt}$$\n\n**Solving for dv/dt:**\n\n$$\\frac{dv}{dt} = \\frac{i_C}{C} = \\frac{5 \\times 10^{-3}}{25 \\times 10^{-12}}$$\n$$\\frac{dv}{dt} = \\frac{5 \\times 10^{-3}}{25 \\times 10^{-12}} = 0.2 \\times 10^{9} = \\boxed{200\\text{ V/μs}}$$\n\n**Interpretation:** This thyristor can safely withstand a voltage rise rate of 200 V/μs without false triggering. Above this rate, the capacitive current could trigger the device unintentionally.",
+    topic: "Device Protection",
+    difficulty: "medium"
+  },
+  {
+    question: "A thyristor has equivalent depletion layer capacitance of 30 pF and dv/dt rating of 150 V/μs. Calculate the capacitive current flowing through the junction.",
+    answer: "**Capacitive current formula:**\n\n$$i_C = C\\frac{dv}{dt}$$\n\n**Substituting values:**\n\n$$i_C = 30 \\times 10^{-12} \\times 150 \\times 10^{6}$$\n$$i_C = 30 \\times 10^{-12} \\times 1.5 \\times 10^{8}$$\n$$i_C = 45 \\times 10^{-4} = \\boxed{4.5\\text{ mA}}$$\n\n**Significance:** When voltage rises at the rated 150 V/μs, a 4.5 mA current flows capacitively through the junction. This must remain below the minimum gate current needed to accidentally trigger the device.",
+    topic: "Device Protection",
+    difficulty: "medium"
+  },
+
+  // ============================================
+  // VOLTAGE & CURRENT SAFETY FACTORS
+  // ============================================
+  {
+    question: "An SCR is rated for 650 V Peak Inverse Voltage (PIV). Calculate the safe operating voltage if a voltage safety factor of 2 is required.",
+    answer: "**Safety factor concept:**\n\nThe voltage safety factor provides a margin of safety by limiting the operating voltage to a fraction of the device's rated maximum.\n\n**Operating voltage formula:**\n\n$$V_{op} = \\frac{\\text{Rated PIV}}{\\text{Safety Factor}} = \\frac{650}{2} = \\boxed{325\\text{ V}}$$\n\n**Interpretation:** Although the SCR can handle 650V in the reverse direction, operating it at only 325V provides a 2× safety margin. This protects against:\n- Voltage spikes and transients\n- Parameter variation with temperature\n- Aging effects\n- Manufacturing tolerances\n\nUsing a safety factor of 2 is standard practice in industrial power electronics design.",
+    topic: "Design Margins",
+    difficulty: "easy"
+  },
+  {
+    question: "An SCR is rated 800 V PIV and can conduct 200 A repetitive peak current. Find the safe operating conditions with a voltage safety factor of 2 and current safety factor of 1.5.",
+    answer: "**Voltage safety analysis:**\n\n$$V_{op} = \\frac{\\text{PIV}}{\\text{Safety Factor}} = \\frac{800}{2} = \\boxed{400\\text{ V}}$$\n\n**Current safety analysis:**\n\n$$I_{op} = \\frac{I_{peak}}{\\text{Safety Factor}} = \\frac{200}{1.5} = \\boxed{133.3\\text{ A}}$$\n\n**Safe Operating Region:**\n- Maximum voltage: 400V (provides 2× protection margin)\n- Maximum current: 133.3A (provides 1.5× protection margin)\n\n**Application:** The SCR should be rated for 800V/200A but operated within 400V/133.3A limits to ensure long device life and reliability. This is especially important in harsh industrial environments with potential voltage transients.",
+    topic: "Design Margins",
+    difficulty: "medium"
+  },
+
+  // ============================================
+  // COMMUTATION & TURN-OFF
+  // ============================================
+  {
+    question: "Define commutation in thyristor circuits. Distinguish between natural and forced commutation.",
+    answer: "**Commutation definition:**\n\nCommutation is the process of turning off a conducting thyristor by reducing its anode current below the holding current, forcing it to revert to the blocking (off) state.\n\n**Natural Commutation:**\n- Occurs automatically in **AC circuits**\n- As the AC voltage passes through zero, the anode current naturally falls to zero\n- The thyristor automatically turns off without external components\n- Used in AC rectifiers and AC controllers\n- Simple circuit design, no external commutation circuit needed\n\n**Forced Commutation:**\n- Required in **DC circuits** where current does not naturally go to zero\n- External components (LC circuits, additional thyristors) force a reverse voltage across the conducting thyristor\n- Reduces anode current below holding current\n- Used in DC choppers, DC-DC converters, and inverters\n- **Five classes of forced commutation:**\n  - Class A: Resonant commutation\n  - Class B: Resonant pulse commutation\n  - Class C: Complementary commutation\n  - Class D: Impulse commutation\n  - Class E: External pulse commutation",
+    topic: "Commutation Techniques",
+    difficulty: "medium"
+  },
+
+  // ============================================
+  // SCR SURGE RATINGS
+  // ============================================
+  {
+    question: "An SCR has a half-cycle surge current rating of 2500 A at 50 Hz. Calculate: (a) one-cycle surge current rating (RMS), (b) I²t rating.",
+    answer: "**Given:**\n- Half-cycle surge current: $$I_p = 2500\\text{ A}$$ (peak)\n- Frequency: 50 Hz (half-cycle = 10 ms, full cycle = 20 ms)\n\n**(a) One-cycle surge current rating (RMS):**\n\nFor a sinusoidal surge current $$i(t) = I_p \\sin(\\pi t/T_h)$$ over half-cycle $$T_h$$:\n\n$$I_{rms,1cycle} = \\sqrt{\\frac{1}{T_{full}} \\int_0^{T_h} I_p^2 \\sin^2\\left(\\frac{\\pi t}{T_h}\\right) dt}$$\n\n$$I_{rms,1cycle} = \\sqrt{\\frac{1}{20\\text{ ms}} \\times \\frac{I_p^2}{2} \\times 10\\text{ ms}} = \\sqrt{\\frac{I_p^2}{4}} = \\frac{I_p}{2}$$\n\n$$I_{rms,1cycle} = \\frac{2500}{2} = \\boxed{1250\\text{ A}}$$\n\n**(b) I²t rating (thermal energy capacity):**\n\n$$I^2t = \\int_0^{T_h} I_p^2 \\sin^2\\left(\\frac{\\pi t}{T_h}\\right) dt = I_p^2 \\times \\frac{T_h}{2}$$\n\n$$I^2t = (2500)^2 \\times \\frac{0.01}{2} = 6.25 \\times 10^6 \\times 0.005$$\n\n$$I^2t = \\boxed{31,250\\text{ A}^2\\text{s}}$$\n\n**Interpretation:** I²t represents the total thermal energy the device can safely absorb during a surge without thermal damage.",
+    topic: "Device Ratings",
+    difficulty: "hard"
+  },
+
+  // ============================================
+  // ADVANCED CONCEPTS
+  // ============================================
+  {
+    question: "Describe the two-transistor equivalent model of an SCR. Write the formula for anode current at turn-on.",
+    answer: "**Two-Transistor Model:**\n\nAn SCR can be modeled as a **PNP transistor (Q₁) connected back-to-back with an NPN transistor (Q₂)**. The gate is connected to the base of Q₂.\n\n**Circuit representation:**\n- Anode connects to collector of Q₁\n- Cathode connects to emitter of Q₂\n- Gate connects to base of Q₂\n- Cross-coupling between collectors provides positive feedback\n\n**Anode current formula:**\n\n$$I_A = \\frac{\\alpha_2 I_G + I_{CBO1} + I_{CBO2}}{1 - (\\alpha_1 + \\alpha_2)}$$\n\nWhere:\n- $$\\alpha_1, \\alpha_2$$ = forward current gains (transfer ratios) of Q₁ and Q₂\n- $$I_G$$ = gate current\n- $$I_{CBO1}, I_{CBO2}$$ = leakage currents (small reverse saturated currents)\n\n**Key insight:** When $$(\\alpha_1 + \\alpha_2) \\to 1$$, the denominator approaches zero, causing $$I_A$$ to increase dramatically - this is regenerative turn-on. For SCRs in normal operation, $$(\\alpha_1 + \\alpha_2) = 0.9$$ to 0.95$.",
+    topic: "Device Models",
+    difficulty: "hard"
+  },
+  {
+    question: "List the five methods of triggering (turning on) an SCR. Which is most reliable and why?",
+    answer: "**Five SCR triggering methods:**\n\n**1. Forward voltage triggering**\n- Apply high forward voltage until avalanche breakdown occurs\n- **Disadvantages:** Unreliable, can damage device, uncontrolled\n\n**2. Thermal (temperature) triggering**\n- Increase junction temperature until thermal runaway\n- **Disadvantages:** Unreliable, temperature dependent, dangerous\n\n**3. dv/dt triggering**\n- Fast rising voltage across SCR injects capacitive current into middle junction\n- **Disadvantages:** False turn-on, accidental triggering, prevented by snubber circuits\n\n**4. Light triggering (LASCR only)**\n- Light strikes inner p-layer generating electron-hole pairs\n- **Disadvantages:** Limited to special Light-Activated SCRs, costly\n\n**5. Gate triggering** ✓ **MOST RELIABLE**\n- Apply positive voltage between gate and cathode\n- **Advantages:**\n  - Most controllable method\n  - Low gate current required\n  - Precise timing control\n  - Well-understood and predictable\n  - Standard industrial practice\n  - Wide noise immunity when designed properly\n\n**Conclusion:** Gate triggering is the industry standard for power electronics control because it provides precise, reliable, and economical switching.",
+    topic: "Gate Drive & Triggering",
+    difficulty: "medium"
+  },
+];
