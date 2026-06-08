@@ -200,8 +200,7 @@ function Dashboard() {
 
                     <div className="flex items-center justify-between pt-2 border-t border-purple-500/20">
                       <div className="text-xs text-foreground/70 font-medium">
-                        {!isFull && total > 0 && <span>First {s.free_card_limit} free</span>}
-                        {isFull && <span className="text-purple-600 font-semibold">✓ Full Access</span>}
+                        <span className="text-purple-600 font-semibold">✓ Full Access</span>
                       </div>
                       <Button asChild size="sm" className="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white border-0">
                         <Link to="/revise/$setId" params={{ setId: s.id }}>
