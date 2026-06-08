@@ -1,369 +1,330 @@
-// Comprehensive Q&A cards for Analogue Electronics based on exam content
+// Comprehensive Q&A cards for Power Electronics based on HEXCO exam content
 export const qaCardsData = [
-  // Control Systems & Automation
+  // Thyristor Basics
   {
-    topic: 'Control Systems Fundamentals',
-    question: 'What is Direct Digital Control (DDC)?',
-    answer: 'A control system where a digital computer or microcontroller directly adjusts control variables (e.g., valve position, motor speed) based on sensor feedback, without intermediate analog devices.',
-    difficulty: 'easy',
-    tags: ['definitions', 'control'],
-  },
-  {
-    topic: 'Control Systems Fundamentals',
-    question: 'Explain the three main input signals in a control system.',
-    answer: '1) Setpoint (reference input) - desired value of controlled variable. 2) Feedback signal - measured actual value from sensor. 3) Disturbance input - unwanted external influence affecting system output.',
-    difficulty: 'medium',
-    tags: ['definitions', 'control'],
-  },
-  {
-    topic: 'Control Systems Fundamentals',
-    question: 'What is a Programmable Logic Controller (PLC)?',
-    answer: 'A ruggedized industrial digital computer designed for real-time control of manufacturing processes, assembly lines, and robotic devices using ladder logic or other programming languages.',
-    difficulty: 'easy',
-    tags: ['definitions', 'control'],
-  },
-  {
-    topic: 'Control Systems Fundamentals',
-    question: 'Define SCADA.',
-    answer: 'Supervisory Control and Data Acquisition - a high-level system for monitoring and controlling industrial processes across large geographical areas, collecting real-time data from remote sensors.',
-    difficulty: 'easy',
-    tags: ['definitions', 'control'],
-  },
-  {
-    topic: 'Control Systems Fundamentals',
-    question: 'What is a Distributed Control System (DCS)?',
-    answer: 'A control system where control elements are distributed throughout a plant rather than centralized, with local controllers communicating over a network for process automation.',
-    difficulty: 'medium',
-    tags: ['definitions', 'control'],
-  },
+    topic: 'Thyristor Fundamentals',
+    question: 'What is the two-transistor model explanation for SCR latching?',
+    answer: `The SCR contains two transistors connected in positive feedback loop:
+- T₁ (PNP) and T₂ (NPN)
+- Collector of T₁ drives base of T₂
+- Collector of T₂ drives base of T₁
 
-  // Transducers & Sensors
-  {
-    topic: 'Sensors & Transducers',
-    question: 'What is the difference between a transducer and a sensor?',
-    answer: 'A transducer converts one form of energy to another. A sensor detects a physical property and converts it to an electrical signal. All sensors are transducers, but not all transducers are sensors.',
-    difficulty: 'medium',
-    tags: ['definitions', 'sensors'],
-  },
-  {
-    topic: 'Sensors & Transducers',
-    question: 'Describe a potentiometer sensor.',
-    answer: 'Measures angular or linear position by changing resistance. Simple and low-cost but subject to wear. Commonly used in joint angle measurement for robotic systems.',
-    difficulty: 'easy',
-    tags: ['sensors', 'robotics'],
-  },
-  {
-    topic: 'Sensors & Transducers',
-    question: 'How does an optical encoder work?',
-    answer: 'Provides digital position feedback using a rotating disk with slots and a light source/detector. Can be incremental (relative) or absolute. Used for precise motor shaft position feedback.',
-    difficulty: 'medium',
-    tags: ['sensors', 'robotics'],
-  },
-  {
-    topic: 'Sensors & Transducers',
-    question: 'What is an ultrasonic sensor and its applications?',
-    answer: 'Emits sound waves and measures time-of-flight for echoes to determine distance to objects. Commonly used for obstacle avoidance and navigation in robotic systems.',
-    difficulty: 'easy',
-    tags: ['sensors', 'robotics'],
-  },
-  {
-    topic: 'Sensors & Transducers',
-    question: 'Explain an Inertial Measurement Unit (IMU).',
-    answer: 'Combines accelerometers and gyroscopes (and sometimes magnetometers) to measure orientation, angular velocity, and linear acceleration. Essential for balance in mobile robots.',
-    difficulty: 'medium',
-    tags: ['sensors', 'robotics'],
-  },
+When gate current applied:
+- Acts as base current for T₂
+- Generates collector current ($$I_{C2}$$)
+- This becomes base current ($$I_{B1}$$) for T₁
+- Creates collector current ($$I_{C1}$$)
+- Which becomes base current ($$I_{B2}$$) for T₂
+- Regenerative feedback increases until both transistors saturate
+- Current $$I_A = \\frac{I_g(1 + \\alpha_2)}{1 - (\\alpha_1 + \\alpha_2)}$$
 
-  // Robotics
-  {
-    topic: 'Robotics',
-    question: 'List the basic components of a robot.',
-    answer: '1) Manipulator (arm) - mechanical structure with links and joints. 2) End effector (gripper/tool) - interacts with environment. 3) Actuators - provide movement. 4) Sensors - feedback devices. 5) Controller - brain of robot. 6) Power supply.',
-    difficulty: 'easy',
-    tags: ['robotics', 'definitions'],
-  },
-  {
-    topic: 'Robotics',
-    question: 'What is the role of an end-effector in a robot?',
-    answer: 'The end-effector is the device attached to the wrist of the manipulator that physically interacts with the environment. Examples include grippers, welding torches, paint sprayers, or cutting tools.',
-    difficulty: 'easy',
-    tags: ['robotics'],
-  },
-  {
-    topic: 'Robotics',
-    question: 'Describe vision sensors (cameras) in robotics.',
-    answer: 'Capture digital images for object recognition, tracking, quality inspection, and visual servoing. Algorithms process pixels to detect objects, colors, and distances. Provide rich environmental data.',
-    difficulty: 'medium',
-    tags: ['sensors', 'robotics'],
-  },
-  {
-    topic: 'Robotics',
-    question: 'What is a force/torque sensor used for in robotics?',
-    answer: 'Measures forces and moments applied to the robot\'s wrist or end effector using strain gauges. Essential for assembly, grinding, polishing, and delicate handling tasks.',
-    difficulty: 'medium',
-    tags: ['sensors', 'robotics'],
-  },
-  {
-    topic: 'Robotics',
-    question: 'Explain proximity sensors in robotic applications.',
-    answer: 'Inductive sensors detect metallic objects via magnetic field. Capacitive sensors detect conductive/dielectric objects via electric field. Used for end-stop detection, part presence, and collision avoidance.',
-    difficulty: 'medium',
-    tags: ['sensors', 'robotics'],
-  },
-
-  // Control Theory - Bode Plots
-  {
-    topic: 'Bode Plots & Stability',
-    question: 'What is a Bode plot?',
-    answer: 'A graphical representation of a transfer function consisting of two plots: magnitude (in dB) vs. log frequency and phase (in degrees) vs. log frequency. Used for frequency response analysis.',
-    difficulty: 'medium',
-    tags: ['control', 'bode'],
-  },
-  {
-    topic: 'Bode Plots & Stability',
-    question: 'Define gain margin.',
-    answer: 'Gain margin is the amount of gain increase (in dB) required to make the system unstable. Found at the phase crossover frequency where phase equals -180 degrees.',
-    difficulty: 'medium',
-    tags: ['control', 'bode', 'stability'],
-  },
-  {
-    topic: 'Bode Plots & Stability',
-    question: 'Define phase margin.',
-    answer: 'Phase margin is the difference between the actual phase and -180 degrees at the gain crossover frequency where magnitude equals 1 (0 dB). Higher phase margin indicates more stable system.',
-    difficulty: 'medium',
-    tags: ['control', 'bode', 'stability'],
-  },
-  {
-    topic: 'Bode Plots & Stability',
-    question: 'How do you identify corner frequencies on a Bode plot?',
-    answer: 'Corner frequencies occur at pole and zero locations. On the magnitude plot, asymptotic slope changes by 20 dB/decade at each corner frequency. Identified from the poles/zeros of the transfer function.',
+Once $$(\\alpha_1 + \\alpha_2) \\rightarrow 1$$, anode current becomes very large and SCR latches ON.`,
     difficulty: 'hard',
-    tags: ['control', 'bode'],
+    tags: ['thyristor', 'model'],
   },
 
-  // Laplace Transforms
   {
-    topic: 'Laplace Transforms',
-    question: 'What is the Laplace transform of a unit step function?',
-    answer: 'L{u(t)} = 1/s, where u(t) is the unit step function. This fundamental transform is used in solving differential equations in control systems.',
-    difficulty: 'easy',
-    tags: ['laplace', 'math'],
-  },
-  {
-    topic: 'Laplace Transforms',
-    question: 'What is the Laplace transform of a ramp function?',
-    answer: 'L{t} = 1/s^2, where t is the ramp function. Used for finding transient responses in control systems.',
-    difficulty: 'easy',
-    tags: ['laplace', 'math'],
-  },
-  {
-    topic: 'Laplace Transforms',
-    question: 'How do you apply the derivative property in Laplace transforms?',
-    answer: 'L{f\'(t)} = sF(s) - f(0), where F(s) is the Laplace transform of f(t). The second derivative is: L{f\'\'(t)} = s^2F(s) - sf(0) - f\'(0).',
-    difficulty: 'medium',
-    tags: ['laplace', 'math'],
-  },
-  {
-    topic: 'Laplace Transforms',
-    question: 'What is partial fraction decomposition used for?',
-    answer: 'Partial fractions break complex rational functions into simpler fractions that have known inverse Laplace transforms, allowing conversion from Laplace domain back to time domain.',
+    topic: 'Gate Triggering',
+    question: 'Compare DC, AC, and Pulse gate triggering methods. Which is preferred and why?',
+    answer: `**DC Gate Triggering:**
+- Direct DC voltage between gate and cathode
+- Simple but no isolation between power and control
+- Continuous DC signal required → high gate power loss
+- Max ±20V on gate terminal
+
+**AC Gate Triggering:**
+- Two methods: Resistance (R) and RC triggering
+- R-triggering: max 90° firing angle, simple
+- RC-triggering: up to 160° firing angle, better control
+- Transformer provides 2000V+ isolation
+- Better noise immunity
+
+**Pulse Gate Triggering:**
+- High-frequency pulse train via transformer
+- No continuous gate current → low losses (preferred method)
+- Excellent for inductive circuits with back-EMF
+- Pulse transformer coupling 1:5 typical
+- Response time <2 μs
+- Allows precise timing control
+
+**Preferred: Pulse triggering** because:
+1. Minimal gate power dissipation
+2. Best isolation capability
+3. Fastest response (for dynamic circuits)
+4. Flexibility for complex control algorithms`,
     difficulty: 'hard',
-    tags: ['laplace', 'math'],
-  },
-  {
-    topic: 'Laplace Transforms',
-    question: 'What is the Laplace transform of an exponential function e^(-at)?',
-    answer: 'L{e^(-at)} = 1/(s+a). This is essential for solving differential equations with exponential terms.',
-    difficulty: 'easy',
-    tags: ['laplace', 'math'],
+    tags: ['gate-drive', 'triggering'],
   },
 
-  // Pneumatic Systems
   {
-    topic: 'Pneumatic Control',
-    question: 'What is a pneumatic volume booster?',
-    answer: 'Also called a relay or amplifier, it increases the flow capacity of a pneumatic control system, providing higher volume of air to large actuators without sacrificing response speed.',
-    difficulty: 'medium',
-    tags: ['pneumatic', 'control'],
-  },
-  {
-    topic: 'Pneumatic Control',
-    question: 'How does a pneumatic control valve work?',
-    answer: 'A control valve modulates the flow of compressed air in response to a control signal. Spool movement controls ports, directing pressurized air to actuators or exhausting to atmosphere.',
-    difficulty: 'medium',
-    tags: ['pneumatic', 'control'],
-  },
-  {
-    topic: 'Pneumatic Control',
-    question: 'What are common applications of pneumatic systems?',
-    answer: 'Used in manufacturing (assembly lines), automation, robotics, and tools where speed and reliability are important. Advantages: safe, clean, inexpensive. Disadvantages: lower power density, need for compressor.',
-    difficulty: 'easy',
-    tags: ['pneumatic', 'control'],
-  },
+    topic: 'Device Protection',
+    question: 'What is dv/dt effect on SCR and how to prevent unintended firing?',
+    answer: `**dv/dt Effect:**
+SCR junction acts as capacitor. During turn-off, voltage rises rapidly:
+$$i_c = C \\frac{dV}{dt}$$
 
-  // PWM & Communication Protocols
-  {
-    topic: 'Control Techniques',
-    question: 'What is Pulse Width Modulation (PWM)?',
-    answer: 'A technique for controlling analog circuits by varying the duty cycle of a digital square wave. Adjusts average voltage/power to a load. Used in motor speed control and LED brightness.',
-    difficulty: 'easy',
-    tags: ['control', 'pwm'],
-  },
-  {
-    topic: 'Control Techniques',
-    question: 'How does PWM duty cycle affect output power?',
-    answer: 'Output power is proportional to duty cycle. A 50% duty cycle delivers 50% of maximum power. A 75% duty cycle delivers 75% of maximum power. Used for smooth analog control.',
-    difficulty: 'medium',
-    tags: ['pwm', 'control'],
-  },
-  {
-    topic: 'Communication & Protocols',
-    question: 'What is Modbus protocol?',
-    answer: 'A master-slave communication protocol used in industrial control. Allows communication between different devices on an industrial network. Supports both serial (RTU/ASCII) and TCP/IP variants.',
-    difficulty: 'medium',
-    tags: ['protocols', 'communication'],
-  },
-  {
-    topic: 'Communication & Protocols',
-    question: 'What is Profibus?',
-    answer: 'A process fieldbus standard for real-time distributed control. Used for decentralized automation and modular plant expansions. Higher speed than Modbus.',
-    difficulty: 'medium',
-    tags: ['protocols', 'communication'],
-  },
+This capacitive current can equal or exceed gate threshold current, causing unintended turn-on even without gate signal!
 
-  // Stability Analysis
-  {
-    topic: 'System Stability',
-    question: 'What is the Nyquist stability criterion?',
-    answer: 'States that a closed-loop system is stable if the number of counter-clockwise encirclements of the critical point (-1, 0) by the Nyquist plot equals the number of open-loop poles in the right half-plane.',
+**Prevention - RC Snubber:**
+1. **Capacitor:** $$C_s = \\frac{i_c}{(dv/dt)_{allowed}}$$
+   - Limits current by absorbing voltage rise
+   - Typical: 0.1-0.22 μF
+
+2. **Resistor:** $$R_s = \\frac{V_{peak}}{I_{peak}}$$
+   - Dissipates stored energy
+   - Typical: 15-30 Ω, 50-100W rated
+
+3. **Example:** For 400V supply with 200V/μs rating and SF=2:
+   - Allowed dv/dt = 100 V/μs
+   - Required C ≈ 0.1 μF
+   - Required R ≈ 18Ω
+
+**Result:** Snubber maintains dv/dt below safe level, preventing false triggering.`,
     difficulty: 'hard',
-    tags: ['stability', 'control'],
+    tags: ['protection', 'snubber'],
   },
+
   {
-    topic: 'System Stability',
-    question: 'How do you determine stability from a characteristic equation?',
-    answer: 'A system is stable if all roots of the characteristic equation are in the left half of the s-plane (negative real parts). If any root has positive real part, system is unstable.',
+    topic: 'Commutation',
+    question: 'Why is commutation necessary for SCRs? What does it accomplish?',
+    answer: `**Why Commutation is Needed:**
+SCR can only be turned ON by gate signal. It cannot be turned OFF by gate!
+To turn OFF, must force anode current to zero and apply reverse voltage.
+
+**What Commutation Accomplishes:**
+
+1. **Reduces forward current to zero:**
+   - Must drop below holding current $$I_H$$
+   - External circuit forces this reduction
+   - Typical time: 5-100 μs
+
+2. **Applies reverse voltage:**
+   - Recombines excess charge carriers in junction
+   - Restores forward-blocking capability
+   - Prevents false turn-on from dv/dt
+
+3. **Enables next cycle:**
+   - Prepares device for next gate trigger
+   - Completes turn-OFF sequence
+
+**Commutation methods:**
+- **Natural (AC circuits):** Supply voltage naturally zeros each half-cycle
+- **Forced (DC circuits):** Commutation circuit creates reverse voltage
+  - Class A: Load-based (simple, high frequency)
+  - Class B: Capacitive (chopper circuits)
+  - Class C: Complementary (inverters)
+  - Classes D, E: Auxiliary commutation
+
+**Practical impact:**
+Without commutation, SCR stays ON indefinitely!
+Commutation circuit is essential for all power electronic control applications.`,
+    difficulty: 'medium',
+    tags: ['commutation', 'turnoff'],
+  },
+
+  {
+    topic: 'Rectifier Analysis',
+    question: 'Derive average output voltage equation for half-wave rectifier as function of firing angle.',
+    answer: `**Half-Wave Rectifier Average Voltage:**
+
+For input $$v_s = V_m \\sin(\\omega t)$$ with firing angle α:
+
+SCR conducts from α to π (180°)
+
+Average voltage:
+$$V_{dc} = \\frac{1}{\\pi} \\int_{\\alpha}^{\\pi} V_m\\sin(\\omega t) d(\\omega t)$$
+
+$$V_{dc} = \\frac{V_m}{\\pi}[-\\cos(\\omega t)]_{\\alpha}^{\\pi}$$
+
+$$V_{dc} = \\frac{V_m}{\\pi}[1 + \\cos(\\alpha)]$$
+
+**For 400V RMS:**
+$$V_m = 565.7V$$
+$$V_{dc} = 180.1(1 + \\cos\\alpha)\\,V$$
+
+**Examples:**
+- α = 0°: V_dc = 360.2V (maximum)
+- α = 45°: V_dc = 217V
+- α = 90°: V_dc = 90V (minimum)
+- α > 120°: V_dc approaches zero
+
+**Key insight:** Firing angle controls output voltage from maximum (0°) to minimum (90°+), enabling power control.`,
     difficulty: 'hard',
-    tags: ['stability', 'control'],
+    tags: ['rectifier', 'voltage-control'],
   },
 
-  // Actuators
   {
-    topic: 'Actuators',
-    question: 'What is an actuator?',
-    answer: 'A device that converts a control signal into physical action (linear or rotary motion). Examples: electric motors, solenoids, pneumatic cylinders, hydraulic cylinders.',
-    difficulty: 'easy',
-    tags: ['definitions', 'actuators'],
-  },
-  {
-    topic: 'Actuators',
-    question: 'What types of motors are used in robots?',
-    answer: 'DC servo motors for precise position control, stepper motors for discrete positioning, AC induction motors for high power applications. Selection depends on control requirements and application.',
-    difficulty: 'medium',
-    tags: ['actuators', 'robotics'],
-  },
+    topic: 'Thermal Management',
+    question: 'How is junction temperature calculated for an SCR and what is thermal runaway?',
+    answer: `**Junction Temperature Calculation:**
 
-  // DCS Systems
-  {
-    topic: 'Distributed Control Systems',
-    question: 'What are the main components of a DCS?',
-    answer: 'Field instruments (sensors/transmitters), control modules, operator workstations, communication network, and application software. Each level performs specific control functions.',
-    difficulty: 'medium',
-    tags: ['dcs', 'control'],
-  },
-  {
-    topic: 'Distributed Control Systems',
-    question: 'What are advantages of DCS over centralized control?',
-    answer: 'Higher reliability (failure doesn\'t shut down entire system), easier maintenance, better scalability, reduced wiring, faster response times, and modular expansion capability.',
-    difficulty: 'medium',
-    tags: ['dcs', 'control'],
-  },
+$$T_j = T_a + P \\times \\theta_{j-a}$$
 
-  // Microcontrollers
-  {
-    topic: 'Microcontrollers & Digital Systems',
-    question: 'What is a microcontroller?',
-    answer: 'A small computer on a single integrated circuit containing a processor, memory, and programmable I/O. Used for embedded control applications in robots, vehicles, and industrial equipment.',
-    difficulty: 'easy',
-    tags: ['microcontroller', 'digital'],
-  },
-  {
-    topic: 'Microcontrollers & Digital Systems',
-    question: 'Compare hardware and software in control systems.',
-    answer: 'Hardware: physical components (processors, sensors, actuators) that perform control functions. Software: programs and logic that determine how hardware operates. Both essential for system functionality.',
-    difficulty: 'easy',
-    tags: ['microcontroller', 'definitions'],
-  },
+Where:
+- $$T_a$$ = Ambient temperature
+- $$P$$ = Total power dissipation (conduction + switching + gate)
+- $$\\theta_{j-a}$$ = Thermal resistance (junction to ambient)
+  - Composed of: $$\\theta_{j-c}$$ (device) + $$\\theta_{c-a}$$ (heatsink)
 
-  // System Specifications
-  {
-    topic: 'System Response Characteristics',
-    question: 'What is peak time in second-order systems?',
-    answer: 'Tp = π/ωd, where ωd is the damped natural frequency. Represents the time when the system response reaches its maximum value after a step input.',
+**Example:**
+- Conduction loss: $$P = V_f \\times I_{avg} = 1.5V \\times 20A = 30W$$
+- Device resistance: $$\\theta_{j-c} = 0.75°C/W$$
+- Heatsink resistance: $$\\theta_{c-a} = 0.5°C/W$$
+- Total: $$\\theta_{j-a} = 1.25°C/W$$
+- At $$T_a = 50°C$$:
+  $$T_j = 50 + 30 \\times 1.25 = 87.5°C$$ (Safe if max = 150°C)
+
+**Thermal Runaway:**
+
+Forward voltage drops with temperature (~2mV/°C):
+$$V_f(T) = V_f(ref) - \\alpha(T - T_{ref})$$
+
+If temperature rises:
+- $$V_f$$ decreases → current increases
+- More current → more heat
+- Heat causes more temperature rise
+- Creates positive feedback loop!
+
+**Runaway condition:**
+$$\\frac{\\partial P}{\\partial T} > \\frac{1}{\\theta_{j-a}}$$
+
+Device becomes unstable and destroys itself!
+
+**Prevention:**
+- Use adequate heatsink (lower $$\\theta_{c-a}$$)
+- Temperature sensor with current limiting
+- Forced air cooling
+- Parallel devices with current sharing resistors`,
     difficulty: 'hard',
-    tags: ['control', 'math'],
-  },
-  {
-    topic: 'System Response Characteristics',
-    question: 'What is settling time?',
-    answer: 'Ts = 4/(ζωn) for 2% criterion, where ζ is damping ratio and ωn is natural frequency. Time required for response to reach and stay within 2% of final steady-state value.',
-    difficulty: 'hard',
-    tags: ['control', 'math'],
-  },
-  {
-    topic: 'System Response Characteristics',
-    question: 'What is maximum overshoot?',
-    answer: 'Mp = e^(-πζ/√(1-ζ²)) × 100%, where ζ is damping ratio. Indicates how much the response overshoots the steady-state value after step input.',
-    difficulty: 'hard',
-    tags: ['control', 'math'],
+    tags: ['thermal', 'heat-management'],
   },
 
-  // Cascade Control
   {
-    topic: 'Advanced Control Strategies',
-    question: 'What is cascade control?',
-    answer: 'A control strategy where the output of one controller (master/primary) serves as the setpoint for another controller (slave/secondary). Improves dynamic response and rejects disturbances.',
+    topic: 'Number Bases',
+    question: 'Convert 200 decimal to binary, hexadecimal, and octal.',
+    answer: `**Decimal 200 Conversion:**
+
+**To Binary (Repeated ÷2):**
+$$200 ÷ 2 = 100 R0$$
+$$100 ÷ 2 = 50 R0$$
+$$50 ÷ 2 = 25 R0$$
+$$25 ÷ 2 = 12 R1$$
+$$12 ÷ 2 = 6 R0$$
+$$6 ÷ 2 = 3 R0$$
+$$3 ÷ 2 = 1 R1$$
+$$1 ÷ 2 = 0 R1$$
+
+Reading bottom-to-top: $$200_{10} = 11001000_2$$
+
+**To Hexadecimal (Repeated ÷16):**
+$$200 ÷ 16 = 12 R8$$
+$$12 ÷ 16 = 0 R12$$
+
+Convert: 12=C, 8=8
+$$200_{10} = C8_{16}$$
+
+**To Octal (Repeated ÷8):**
+$$200 ÷ 8 = 25 R0$$
+$$25 ÷ 8 = 3 R1$$
+$$3 ÷ 8 = 0 R3$$
+
+Reading bottom-to-top: $$200_{10} = 310_8$$
+
+**Verification:**
+- Binary: $$128 + 64 + 8 = 200$$ ✓
+- Hex: $$12 \\times 16 + 8 = 200$$ ✓
+- Octal: $$3 \\times 64 + 1 \\times 8 = 200$$ ✓
+
+**Direct conversions:**
+Binary to Hex (group by 4): $$1100\\ 1000 = C8_{16}$$
+Binary to Octal (group by 3): $$011\\ 001\\ 000 = 310_8$$`,
     difficulty: 'medium',
-    tags: ['control', 'advanced'],
-  },
-  {
-    topic: 'Advanced Control Strategies',
-    question: 'What is ratio control?',
-    answer: 'A control strategy that maintains the ratio of two process variables at a specified value. One stream is the wild stream, the other controlled to maintain desired ratio.',
-    difficulty: 'medium',
-    tags: ['control', 'advanced'],
+    tags: ['number-bases', 'conversion'],
   },
 
-  // Signal Processing
   {
-    topic: 'Signal Processing',
-    question: 'What is signal modulation?',
-    answer: 'The process of varying a carrier signal\'s properties (amplitude, frequency, or phase) with another signal. Used for encoding information and transmission over communication channels.',
+    topic: 'Opto-Electronic Devices',
+    question: 'How does an LED produce light and what wavelengths represent different colors?',
+    answer: `**LED Light Emission:**
+
+When forward-biased:
+1. Electrons injected into p-layer
+2. Holes injected into n-layer
+3. Carriers recombine near junction
+4. Energy released as photons (light)
+
+**Energy-wavelength relationship:**
+$$E = h\\nu = \\frac{hc}{\\lambda}$$
+
+Where h = 6.63×10⁻³⁴ J·s (Planck constant)
+
+**Color and wavelength:**
+- Red LED: 620-700 nm (V_f ≈ 1.6-2.0V)
+- Yellow: 590-620 nm (V_f ≈ 1.9-2.1V)
+- Green: 500-570 nm (V_f ≈ 1.9-2.2V)
+- Blue: 450-500 nm (V_f ≈ 3.0-3.5V)
+- UV: <400 nm (V_f ≈ 3.5-4.5V)
+
+**Shorter wavelength = Higher forward voltage**
+
+**Typical operating point:**
+- Current: 10-20 mA
+- Voltage drop: 1.5-3.5V depending on color
+- Maximum power: 100-500 mW typically
+- Lifetime: 50,000-100,000 hours
+
+**Current limiting:**
+$$R = \\frac{V_{supply} - V_f}{I_{LED}}$$
+
+Example: 5V supply, red LED (2V), 10mA target
+$$R = \\frac{5 - 2}{0.01} = 300\\,\\Omega$$`,
     difficulty: 'medium',
-    tags: ['signal', 'communication'],
+    tags: ['opto', 'led'],
   },
+
   {
-    topic: 'Signal Processing',
-    question: 'What is a modem?',
-    answer: 'Modulator-Demodulator - converts digital data from computer into analog signals for transmission over communication lines and demodulates incoming analog signals back to digital.',
-    difficulty: 'easy',
-    tags: ['communication', 'definitions'],
-  },
+    topic: 'Device Ratings',
+    question: 'What is forward surge current (I_FSM) rating and why is it critical?',
+    answer: `**Forward Surge Current ($$I_{FSM}$$):**
+
+Maximum peak anode current SCR can withstand for single half-cycle without damage.
+
+**Typical values:** 10-20× average rated current
+Example: 50A average SCR has $$I_{FSM} \\approx 500-1000A$$
+
+**Why it matters:**
+
+1. **Power-on inrush:**
+   - At switch-on, capacitor banks discharge
+   - Creates very high peak currents
+   - Can exceed $$I_{FSM}$$ and destroy device!
+
+2. **Short-circuit protection:**
+   - Fault current can be $$I_m/R_{fault}$$
+   - For 400V / 10mΩ fault = 40,000A (way above $$I_{FSM}$$!)
+   - Must add series inductance to limit surge
+
+3. **Design requirement:**
+   Select device with: $$I_{FSM} > 3 \\times I_{peak(actual)}$$
+
+**Limiting surge current:**
+
+Series inductor:
+$$L = \\frac{V_m}{(di/dt)_{allowed}} = \\frac{565.7}{150 \\times 10^6} = 3.77\\,\\mu H$$
+
+With 5 μH inductor:
+Peak inrush current limited to safe level
+
+**Safe design margin:**
+- Calculate expected peak current during power-on
+- Select device with 3× that peak rating
+- Add series inductance if needed
+- Verify thermally during commissioning
+
+This prevents device burnout from inrush currents.`,
+    difficulty: 'hard',
+    tags: ['ratings', 'surge-current'],
+  }
 ];
 
-// Generate RPC function for incrementing user count
-export const incrementUserCountRPC = `
-CREATE OR REPLACE FUNCTION increment_user_count()
-RETURNS void AS $$
-BEGIN
-  UPDATE site_stats
-  SET total_users = total_users + 1, updated_at = NOW()
-  WHERE id = (SELECT id FROM site_stats LIMIT 1);
-  
-  -- Insert initial row if none exists
-  INSERT INTO site_stats (total_users)
-  VALUES (1318)
-  ON CONFLICT DO NOTHING;
-END;
-$$ LANGUAGE plpgsql;
-`;
+export default qaCardsData;
